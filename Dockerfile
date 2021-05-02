@@ -1,14 +1,10 @@
-FROM ubuntu:latest
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM archlinux/base:latest
 
 # Common tools
-RUN apt-get update && \
-    apt-get -y install make git cppcheck doxygen
+RUN pacman --noconfirm -Syu && \
+    pacman --noconfirm -S make git cppcheck doxygen
 
-# ARM Embedded toolchain (distro version)
-RUN apt-get -y install gcc-arm-none-eabi
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# ARM Embedded toolchain
+RUN pacman --noconfirm -S arm-none-eabi-gcc
 
 CMD ["/bin/bash"]
